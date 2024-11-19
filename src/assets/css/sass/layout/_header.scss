@@ -1,0 +1,39 @@
+@font-face {
+    font-family: 'graphitRegular';
+    src:    url('../../assets/fonts/graphit/Graphit-Regular.woff2') format('woff2'),
+    url('../../assets/fonts/graphit/Graphit-Regular.woff2') format('woff');
+}
+@font-face {
+    font-family: 'graphitBold';
+    src:    url('../../assets/fonts/graphit/Graphit-Bold.woff2') format('woff2'),
+    url('../../assets/fonts/graphit/Graphit-Bold.woff2') format('woff');
+}
+@font-face {
+    font-family: 'graphitLight';
+    src:    url('../../assets/fonts/graphit/Graphit-Light.woff2') format('woff2'),
+    url('../../assets/fonts/graphit/Graphit-Light.woff2') format('woff');
+}
+body{
+    font-family: 'graphitRegular', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.btn{
+    &:focus{
+        box-shadow: none;
+    }
+}
+
+@media (min-width: 1400px){
+    .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+        max-width: 1320px !important;
+    }
+}
+
+@media(min-width:1920px){
+    .container{
+        max-width:1700px !important;
+    }
+}
+

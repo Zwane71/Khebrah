@@ -1,0 +1,260 @@
+h1, h2, h3, h4, h5, h6 {
+  color: #39425d;
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+.underline {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.text-primary {
+  color: #39425d !important;
+}
+.text-accent {
+  color: #044982 !important;
+}
+
+.rounded {
+  border-radius: 10px !important;
+}
+
+body {
+ color: #77787b;
+}
+
+.base-box {
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  border: 1px solid rgba(0,0,0,0.125);
+}
+
+.h-100 {
+  height: 100%;
+}
+.clipped {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.hidden {
+  display: none !important;
+}
+.pointer {
+  cursor: pointer;
+}
+.grow {
+  flex-grow: 1;
+}
+
+@media (max-width: 576px) {
+  .base-box {
+    padding: 10px;
+  }
+}
+
+/**
+**  Arabic styles
+**/
+
+.rtl {
+  text-align: right;
+}
+
+.rtl .mobile-number {
+  direction: ltr;
+}
+
+.rtl .mobile-number input {
+  text-align: right;
+}
+
+.rtl .text-left {
+  text-align: right !important;
+}
+
+.rtl .text-right {
+  text-align: left !important;
+}
+.rtl .rtl-icon {
+  transform: rotate(180deg)
+}
+.rtl .custom-control {
+  padding-left: auto;
+  padding-right: 1.5rem;
+}
+.rtl .custom-control-label::before, .rtl .custom-control-label::after {
+  left: unset;
+  right: -1.5rem;
+}
+
+.rtl .was-validated .form-control:invalid, 
+.rtl .was-validated .form-control:valid, 
+.rtl .form-control.is-invalid, 
+.rtl .form-control.is-valid {
+  background-position: left calc(0.375em + 0.1875rem) center;
+}
+
+.rtl .was-validated .form-control:invalid, 
+.rtl .was-validated .form-control:valid, 
+.rtl .form-control.is-valid,
+.rtl .form-control.is-invalid {
+  padding-right: 0.75em;
+  padding-left: calc(1.5em + 0.75em);
+}
+.rtl .was-validated textarea.form-control:invalid, 
+.rtl .was-validated textarea.form-control:valid, 
+.rtl textarea.form-control.is-invalid,
+.rtl textarea.form-control.is-valid {
+  background-position: top calc(0.375em + 0.1875rem) left calc(0.375em + 0.1875rem);
+}
+
+.rtl .custom-select {
+  background-position: 0.75rem center;
+  padding: 0.375rem 0.75rem 0.375rem 1.75rem;
+}
+
+.rtl .mr-1 {
+  margin-right: unset !important;
+  margin-left: 0.25rem !important;
+}
+
+.rtl .mr-2 {
+  margin-right: unset !important;
+  margin-left: 0.5rem !important;
+}
+
+.rtl .mr-3 {
+  margin-right: unset !important;
+  margin-left: 1rem !important;
+}
+
+.rtl .mr-4 {
+  margin-right: unset !important;
+  margin-left: 1.5rem !important;
+}
+
+.rtl .mr-5 {
+  margin-right: unset !important;
+  margin-left: 3rem !important;
+}
+
+.rtl .ml-1 {
+  margin-left: unset !important;
+  margin-right: 0.25rem !important;
+}
+
+.rtl .ml-2 {
+  margin-left: unset !important;
+  margin-right: 0.5rem !important;
+}
+
+.rtl .ml-3 {
+  margin-left: unset !important;
+  margin-right: 1rem !important;
+}
+
+.rtl .ml-4 {
+  margin-left: unset !important;
+  margin-right: 1.5rem !important;
+}
+
+.rtl .ml-5 {
+  margin-left: unset !important;
+  margin-right: 3rem !important;
+}
+
+.rtl .pr-1 {
+  padding-right: unset !important;
+  padding-left: 0.25rem !important;
+}
+
+.rtl .pr-2 {
+  padding-right: unset !important;
+  padding-left: 0.5rem !important;
+}
+
+.rtl .pr-3 {
+  padding-right: unset !important;
+  padding-left: 1rem !important;
+}
+
+.rtl .pr-4 {
+  padding-right: unset !important;
+  padding-left: 1.5rem !important;
+}
+
+.rtl .pr-5 {
+  padding-right: unset !important;
+  padding-left: 3rem !important;
+}
+
+.rtl .pl-1 {
+  padding-left: unset !important;
+  padding-right: 0.25rem !important;
+}
+
+.rtl .pl-2 {
+  padding-left: unset !important;
+  padding-right: 0.5rem !important;
+}
+
+.rtl .pl-3 {
+  padding-left: unset !important;
+  padding-right: 1rem !important;
+}
+
+.rtl .pl-4 {
+  padding-left: unset !important;
+  padding-right: 1.5rem !important;
+}
+
+.rtl .pl-5 {
+  padding-left: unset !important;
+  padding-right: 3rem !important;
+}
+
+.rtl .offset-1 {
+  margin-left: unset;
+  margin-right: 8.333333%;
+}
+@media (min-width: 768px) {
+  .rtl .offset-md-3 {
+    margin-left: unset;
+    margin-right: 25%;
+  }
+  .rtl .offset-md-1 {
+    margin-left: unset;
+    margin-right: 8.333333%;
+  }
+
+  .rtl .text-md-right {
+    text-align: left !important;
+  }
+  .rtl .text-md-left {
+    text-align: right !important;
+  }
+}
+
+@media (min-width: 576px) {
+  .rtl .text-sm-right {
+    text-align: left !important;
+  }
+  .rtl .text-sm-left {
+    text-align: right !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .rtl .offset-lg-3 {
+    margin-left: unset;
+    margin-right: 25%;
+  }
+}

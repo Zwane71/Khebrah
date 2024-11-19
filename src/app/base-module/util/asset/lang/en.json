@@ -1,0 +1,14 @@
+{
+  "inputRules": {
+    "requiredField": "This field is required",
+    "validEmail": "Please enter a valid email",
+    "number": "Please enter a valid phone number",
+    "coupon": "Coupon code sholud be 8 character",
+    "pass_not_match": "Password not match",
+    "min_pass_8": "password should be minimum 8 characters",
+    "emailAlreadyExist": "Email already exist",
+    "phoneAlreadyExist": "Phone already exist",
+    "nameAlreadyExist": "This name already exist",
+    "maxCharacter": "Maximum 80 characters allowed"
+  }
+}

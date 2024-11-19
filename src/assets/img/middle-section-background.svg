@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="2913" height="2015" viewBox="0 0 2913 2015">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#044982"/>
+      <stop offset="1" stop-color="#022541"/>
+    </linearGradient>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_154" data-name="Rectangle 154" width="1616.589" height="1294.054" transform="translate(1294.054 0) rotate(90)" fill="none" opacity="0"/>
+    </clipPath>
+  </defs>
+  <g id="a_whole_world_of_expeience" data-name="a whole world of expeience" transform="translate(677.407 -1535.792)">
+    <g id="background" transform="translate(101.05 -11.908) rotate(1)">
+      <path id="Union_8" data-name="Union 8" d="M971,10.078C647.333,30.3,323.667,82.408,161.833,109.33L0,135.755V923.564H2913V56.355l-161.833-6.576C2589.333,42.707,2265.667,30.3,1942,16.653,1738.7,8.082,1535.428,0,1332.129,0,1211.762,0,1091.367,2.834,971,10.078Z" transform="matrix(-1, 0.017, -0.017, -1, 2190.463, 3185.077)" fill="url(#linear-gradient)"/>
+    </g>
+    <g id="Mask_Group" data-name="Mask Group" transform="matrix(-0.616, 0.788, -0.788, -0.616, 4933.303, 4890.009)" opacity="0.1">
+      <g id="Rectangle_154-2" data-name="Rectangle 154" transform="translate(48 3893)" clip-path="url(#clip-path)">
+        <g id="Group_42" data-name="Group 42" transform="translate(286.632 383.913)">
+          <g id="Ellipse_19" data-name="Ellipse 19" transform="translate(690.769 520.591) rotate(90)" fill="none" stroke="#fff" stroke-width="1">
+            <ellipse cx="565.214" cy="339.796" rx="565.214" ry="339.796" stroke="none"/>
+            <ellipse cx="565.214" cy="339.796" rx="564.714" ry="339.296" fill="none"/>
+          </g>
+          <g id="Ellipse_20" data-name="Ellipse 20" transform="translate(766.776 409.034) rotate(90)" fill="none" stroke="#fff" stroke-width="1">
+            <ellipse cx="632.147" cy="380.034" rx="632.147" ry="380.034" stroke="none"/>
+            <ellipse cx="632.147" cy="380.034" rx="631.647" ry="379.534" fill="none"/>
+          </g>
+          <g id="Ellipse_21" data-name="Ellipse 21" transform="translate(831.605 312.355) rotate(90)" fill="none" stroke="#fff" stroke-width="1">
+            <ellipse cx="691.644" cy="415.802" rx="691.644" ry="415.802" stroke="none"/>
+            <ellipse cx="691.644" cy="415.802" rx="691.144" ry="415.302" fill="none"/>
+          </g>
+          <g id="Ellipse_22" data-name="Ellipse 22" transform="translate(905.377 223.111) rotate(90)" fill="none" stroke="#fff" stroke-width="1">
+            <ellipse cx="743.703" cy="447.099" rx="743.703" ry="447.099" stroke="none"/>
+            <ellipse cx="743.703" cy="447.099" rx="743.203" ry="446.599" fill="none"/>
+          </g>
+          <g id="Ellipse_23" data-name="Ellipse 23" transform="translate(976.913 137.584) rotate(90)" fill="none" stroke="#fff" stroke-width="1">
+            <ellipse cx="793.903" cy="477.279" rx="793.903" ry="477.279" stroke="none"/>
+            <ellipse cx="793.903" cy="477.279" rx="793.403" ry="476.779" fill="none"/>
+          </g>
+          <g id="Ellipse_24" data-name="Ellipse 24" transform="translate(1070.804 0) rotate(90)" fill="none" stroke="#fff" stroke-width="1">
+            <ellipse cx="871.991" cy="524.224" rx="871.991" ry="524.224" stroke="none"/>
+            <ellipse cx="871.991" cy="524.224" rx="871.491" ry="523.724" fill="none"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

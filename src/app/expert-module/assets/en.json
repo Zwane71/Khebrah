@@ -1,0 +1,15 @@
+{
+  "expert": {
+    "title": "Title of the service",
+    "description": "Description of the service",
+    "serviceType": "Type of service",
+    "online": "Online",
+    "offline": "Offline",
+    "price": "Price",
+    "jobBased": "Job based service",
+    "timeBased": "Time based service",
+    "addService": "Add Service",
+    "editService": "Edit Service",
+    "save": "Save"
+  }
+}

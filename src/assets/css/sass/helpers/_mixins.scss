@@ -1,0 +1,129 @@
+
+/*Start Media Mixins*/
+@mixin xxLarge {
+    @media(min-width:1537px) and (max-width:1920px){
+        @content;
+    }
+}
+
+@mixin xLarge {
+    @media(min-width:1200px) and (max-width:1400px){
+        @content;
+    }
+}
+
+@mixin large_xlarge {
+    @media(min-width:1200px) and (max-width:1300px){
+        @content;
+    }
+}
+
+@mixin large {
+    @media(min-width:992px) and (max-width:1199px){
+        @content;
+    }
+}
+
+@mixin medium {
+    @media(min-width:768px) and (max-width:991px){
+        @content;
+    }
+}
+@mixin small_medium {
+    @media (max-width:768px){
+        @content;
+    }
+}
+@mixin small {
+    @media (min-width:576px) and (max-width:767.98px){
+        @content;
+    }
+}
+
+@mixin xSmall {
+    @media(max-width:576px){
+        @content;
+    }
+}
+
+
+@mixin xxSmall {
+    @media(max-width:420px){
+        @content;
+    }
+}
+
+@mixin smallest {
+    @media(max-width:332px){
+        @content;
+    }
+}
+@mixin min_xlarge {
+    @media (min-width: 1200px) {
+        @content;
+    }
+}
+/*End Media Mixins*/
+
+
+
+/*overlay Mixin*/
+
+@mixin overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+/*Prefixes Mixin*/
+
+@mixin prefixer($property, $value, $prefixes: ()) {
+    @each $prefix in $prefixes {
+        #{'-' + $prefix + '-' + $property}: $value;
+    }
+    #{$property}: $value;
+}
+
+
+/*Animation Prefixes Mixin*/
+
+@mixin keyFrame($animation-name) {
+    @-webkit-keyframes #{$animation-name} {
+        @content;
+    }
+
+    @-moz-keyframes #{$animation-name} {
+        @content;
+    }
+
+    @keyframes #{$animation-name} {
+        @content;
+    }
+}
+
+@mixin rings($duration, $delay) {
+    opacity: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: '';
+    height: 100%;
+    width: 100%;
+    border: 6px solid rgba(25, 171, 217, .2);
+    border-radius: 100%;
+    animation-name: ripple;
+    animation-duration: $duration;
+    animation-delay: $delay;
+    animation-iteration-count: infinite;
+    animation-timing-function: cubic-bezier(.25,0,.34,1);
+    z-index: -1;
+}

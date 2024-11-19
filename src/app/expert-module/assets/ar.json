@@ -1,0 +1,15 @@
+{
+  "expert": {
+    "title": "اسم الخدمة",
+    "description": "وصف الخدمة",
+    "serviceType": "نوع الخدمة",
+    "online": "متصل",
+    "offline": "غير متصل على الانترنت",
+    "price": "سعر",
+    "jobBased": "خدمة عمل ",
+    "timeBased": "خدمة استشارية ",
+    "addService": "إضافة خدمة",
+    "editService": "تعديل الخدمة",
+    "save": "حفظ"
+  }
+}

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="69.025" height="69.025" viewBox="0 0 69.025 69.025">
+  <g id="play_buttin" data-name="play buttin" transform="translate(-181 -598)">
+    <g id="Ellipse_1" data-name="Ellipse 1" transform="translate(181 598)" fill="#fff" stroke="#fff" stroke-width="1.5">
+      <circle cx="34.513" cy="34.513" r="34.513" stroke="none"/>
+      <circle cx="34.513" cy="34.513" r="33.763" fill="none"/>
+    </g>
+    <path id="Path_2" data-name="Path 2" d="M3910.246,1516.113" transform="translate(-3699.861 -897.499)" fill="#fff" stroke="#fff" stroke-width="1"/>
+    <g id="media-play-symbol" transform="translate(208.388 617.754)">
+      <g id="Layer_8_16_" transform="translate(0)">
+        <path id="Path_206" data-name="Path 206" d="M52.743.152a1.287,1.287,0,0,1,1.212,0L68.4,9.95a1.094,1.094,0,0,1,0,1.959l-14.448,9.8a1.29,1.29,0,0,1-1.212,0,1.121,1.121,0,0,1-.607-.98V1.131A1.12,1.12,0,0,1,52.743.152Z" transform="translate(-52.137 3.308)" fill="#00a072"/>
+      </g>
+    </g>
+  </g>
+</svg>
