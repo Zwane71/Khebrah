@@ -3,113 +3,49 @@
     <div id="expertsPage" class="experts-page">
       <div class="experts-header" :class="{ expanded: !filters.categories }">
         <div class="container">
-          <a href="#" @click.prevent>{{ $t('home.getStarted') }}</a>
-          <h2  class="py-3" v-if="!filters.categories">
-            {{ $t('expertListing.title') }}
-            <!-- Find the talent needed to get your <span>Business</span> growing -->
-          </h2>
-          <h2  class="py-3" v-else>
-            {{ $t('expertListing.prefixTitle') }} {{ selectedCategoryName }}
-            <!-- Find the talent needed to get your <span>Business</span> growing -->
-          </h2>
-          <img
-            src="../../assets/img/head-bg.png"
-            alt="pattern"
-            class="pattern-img"
-          />
+          <!-- Header content like filters and categories go here -->
 
-          <!-- <div class="category-select" v-if="!filters.categories">
-
-            <div class="category-list">
-              <div class="category-item" 
-                @click="setCategory(category)"
-                v-for="category in categories" 
-                :key="category.id">
-                {{ enLang ? category.name : category.name_ar }}
-              </div>
-
+          <div class="categories-apply" v-if="filters.categories">
+            <div class="row no-gutters">
+              <!-- Apply section for categories -->
+              <apply-section
+                :filters="filters"
+                :desktop="true"
+                class="desktop-apply"
+                v-if="!applySectionIsVisible"
+              ></apply-section>
+              <apply-section
+                :desktop="false"
+                :filters="filters"
+                @close="applySectionVisibelty"
+                v-if="applySectionIsVisible"
+              ></apply-section>
+              <categories-section
+                :filters="filters"
+                :experts="experts"
+                :has-more="hasMore"
+                :loading="loading"
+                @loadMore="loadMore"
+              ></categories-section>
             </div>
-          </div> -->
-             <!-- Flex view instead of grid view. -->
-          <div class = "row catg-list" v-if="!filters.categories">
-            <div v-for="category in categories" :key="category.id" class = "col-xs-12 col-sm-6 col-md-4 col-lg-3 px-0">
-                <div @click="setCategory(category)" class="category-item m-1">{{ enLang ? category.name : category.name_ar }}</div>
-              </div>
           </div>
-          <div class="form-experties mobile-form" v-if="filters.categories">
-            <b-form class="apply-text__form">
-              <i class="fas fa-search search__ico"></i>
-              <multiselect
-                :options="searchOptions"
-                group-values="items"
-                group-label="type"
-                open-direction="bottom"
-                label="name"
-                :placeholder="$t('home.searchPlaceholder')"
-                @input="handleSearchInput"
-              >
-              </multiselect>
-              <!-- <b-form-input
-                type="text"
-                ref="search"
-                v-model="filters.search"
-                @keydown.enter.prevent="updateSearch"
-                placeholder="Please write here.."
-              ></b-form-input> -->
-              <button class="btn search-btn" @click.prevent="updateSearch">
-                <i class="fas fa-arrow-right"></i>
-              </button>
-              <!-- <b-button class="search-btn" @click.prevent="updateSearch">
-                <i class="fas fa-arrow-right"></i
-              ></b-button> -->
-            </b-form>
-            <div class="filter-icon" @click="applySectionVisibelty">
-              <img src="../../assets/img/experts/sliders.svg" alt="filter" />
-            </div>
 
-            <!-- <div v-if="selectedCategoryKeywords">
-              <base-tag 
-                @select="toggleKeyword(keyword.id)"
-                :text="enLang ? keyword.name : keyword.name_ar"
-                :selectable="true"
-                :selected="filters.keywords && filters.keywords.includes(keyword.id)"
-                v-for="keyword in selectedCategoryKeywords" 
-                :key="keyword.id" />
-            </div> -->
-            <!-- <div class="experties">
-              <span>Google Ads</span>
-              <span>Facebook Ads</span>
-              <span>SEO</span>
-              <span>Web Dev</span>
-              <span>Branding</span>
-              <span>PPC</span>
-              <span>SM Marketing</span>
-              <span>Logo design</span>
-            </div> -->
-          </div>
+          <!-- Loading spinner to show when data is being loaded -->
+          <div v-if="loading" class="loading-spinner">Loading...</div>
         </div>
       </div>
-      <div class="categories-apply" v-if="filters.categories">
-        <div class="row no-gutters">
-          <apply-section 
-            :filters="filters" 
-            :desktop="true" 
-            class="desktop-apply"
-            v-if="!applySectionIsVisible"
-          ></apply-section>
-          <apply-section
-            :desktop="false"
-            :filters="filters" 
-            @close="applySectionVisibelty"
-            v-if="applySectionIsVisible"
-          ></apply-section>
-          <categories-section 
-           :filters="filters"
-           :experts="experts"
-           :has-more="hasMore"
-           :loading="loading"
-           @loadMore="loadMore"
-           ></categories-section>
+
+      <!-- List of Experts with infinite scroll functionality -->
+      <div
+        ref="expertsList"
+        class="experts-list"
+        @scroll="handleScroll"
+        style="overflow-y: scroll; height: 500px"
+      >
+        <div v-for="expert in experts" :key="expert.id" class="expert-item">
+          <!-- Render each expert's information here -->
+          <p>{{ expert.name }}</p>
+          <!-- Add more expert details as needed -->
         </div>
       </div>
     </div>
@@ -117,34 +53,44 @@
 </template>
 
 <script>
-import ApplySection from "./ApplySection.vue";
-import CategoriesSection from "./CategoriesSection.vue";
-import store from '@/store'
-import Multiselect from 'vue-multiselect'
+import ApplySection from './ApplySection.vue';
+import CategoriesSection from './CategoriesSection.vue';
+import store from '@/store';
+import Multiselect from 'vue-multiselect';
 
 function prepareFilters(query) {
-  const { categories, availability, badges, keywords, country, rating, search } = query
-  const filters = {}
+  const {
+    categories,
+    availability,
+    badges,
+    keywords,
+    country,
+    rating,
+    search,
+  } = query;
+  const filters = {};
 
-  if (categories !== undefined) filters.categories = [].concat(categories).map(k => +k)
-  if (country !== undefined) filters.country = +country
-  else filters.country = null
-  if (availability !== undefined) filters.availability = availability
-  else filters.availability = null
-  if (keywords !== undefined) filters.keywords = [].concat(keywords).map(k => +k)
-  if (badges !== undefined) filters.badges = [].concat(badges).map(b => +b)
-  if (rating !== undefined) filters.rating = +rating
-  else filters.rating = null
-  if (search !== undefined) filters.search = search
+  if (categories !== undefined)
+    filters.categories = [].concat(categories).map((k) => +k);
+  if (country !== undefined) filters.country = +country;
+  else filters.country = null;
+  if (availability !== undefined) filters.availability = availability;
+  else filters.availability = null;
+  if (keywords !== undefined)
+    filters.keywords = [].concat(keywords).map((k) => +k);
+  if (badges !== undefined) filters.badges = [].concat(badges).map((b) => +b);
+  if (rating !== undefined) filters.rating = +rating;
+  else filters.rating = null;
+  if (search !== undefined) filters.search = search;
 
-  return filters
+  return filters;
 }
 
 export default {
   components: {
     ApplySection,
     CategoriesSection,
-    Multiselect
+    Multiselect,
   },
   data() {
     return {
@@ -158,59 +104,65 @@ export default {
     };
   },
   metaInfo: {
-    title: 'Our Experts | Khebrah'
+    title: 'Our Experts | Khebrah',
   },
   beforeRouteEnter(to, from, next) {
-    const filters = prepareFilters(to.query)
+    const filters = prepareFilters(to.query);
 
-    store.dispatch('experts/getExperts', { ...filters, limit: 6, offset: 0 })
-      .then(data => {
-        next(vm => {
-          vm.filters = filters
-          vm.count = data.count
+    store
+      .dispatch('experts/getExperts', { ...filters, limit: 6, offset: 0 })
+      .then((data) => {
+        next((vm) => {
+          vm.filters = filters;
+          vm.count = data.count;
 
-          // if (vm.user && vm.user.pk) vm.experts = data.results.filter(expert => expert.profile.pk !== vm.user.pk) 
+          // if (vm.user && vm.user.pk) vm.experts = data.results.filter(expert => expert.profile.pk !== vm.user.pk)
           // else vm.experts = data.results
-          vm.experts = data.results
-        })
+          vm.experts = data.results;
+        });
       })
       .catch((error) => {
         console.log(error.response);
       });
   },
   beforeRouteUpdate(to, from, next) {
-    const toLang = to.path.split('/')[1]
-    const fromLang = from.path.split('/')[1]
+    const toLang = to.path.split('/')[1];
+    const fromLang = from.path.split('/')[1];
     if (toLang !== fromLang) {
-      next()
-      return
+      next();
+      return;
     }
-    const filters = prepareFilters(to.query)
-    this.filters = filters
-    this.page = 0 //reset page
+    const filters = prepareFilters(to.query);
+    this.filters = filters;
+    this.page = 0; //reset page
 
-    this.loading = true
-    store.dispatch('experts/getExperts', { ...filters, limit: this.limit, offset: this.page * this.limit })
-      .then(data => {
-        this.loading = false
-        this.count = data.count
-        // if (this.user && this.user.pk) this.experts = data.results.filter(expert => expert.profile.pk !== this.user.pk) 
+    this.loading = true;
+    store
+      .dispatch('experts/getExperts', {
+        ...filters,
+        limit: this.limit,
+        offset: this.page * this.limit,
+      })
+      .then((data) => {
+        this.loading = false;
+        this.count = data.count;
+        // if (this.user && this.user.pk) this.experts = data.results.filter(expert => expert.profile.pk !== this.user.pk)
         // else this.experts = data.results
-        this.experts = data.results
-          next()
+        this.experts = data.results;
+        next();
       })
       .catch((error) => {
-        this.loading = false
+        this.loading = false;
         console.log(error.response);
       });
   },
 
   computed: {
     hasMore() {
-      return this.count > this.experts.length
+      return this.count > this.experts.length;
     },
     keywords() {
-      return this.$store.getters['data/keywords']
+      return this.$store.getters['data/keywords'];
     },
     categories() {
       // return [
@@ -218,94 +170,108 @@ export default {
       //   ...this.$store.getters['data/categories']
       // ]
 
-      return this.$store.getters['data/categories']
+      return this.$store.getters['data/categories'];
     },
     searchOptions() {
       return [
-        { type: 'Categories', items: this.categories.map(c => ({ type: 'category', ...c })) },
-        { type: 'Keywords', items: this.keywords.map(k => ({ type: 'keyword', ...k })) },
-      ]
+        {
+          type: 'Categories',
+          items: this.categories.map((c) => ({ type: 'category', ...c })),
+        },
+        {
+          type: 'Keywords',
+          items: this.keywords.map((k) => ({ type: 'keyword', ...k })),
+        },
+      ];
     },
     user() {
-      return this.$store.getters['auth/user']
+      return this.$store.getters['auth/user'];
     },
     categoriesHash() {
-      return this.$store.getters['data/categoriesHash']
+      return this.$store.getters['data/categoriesHash'];
     },
     keywordsHash() {
-      return this.$store.getters['data/keywordsHash']
+      return this.$store.getters['data/keywordsHash'];
     },
     selectedCategory() {
       return this.filters.categories && this.filters.categories[0] >= 0
         ? this.categoriesHash[this.filters.categories[0]]
-        : null
+        : null;
     },
     selectedCategoryKeywords() {
-      if(!this.selectedCategory) return []
+      if (!this.selectedCategory) return [];
 
       return this.selectedCategory.keyword
-        .map(id => this.keywordsHash[id])
-        .filter(keyword => keyword)
+        .map((id) => this.keywordsHash[id])
+        .filter((keyword) => keyword);
     },
     selectedCategoryName() {
-      if (!this.selectedCategory) return this.$t('expertListing.allCategories')
+      if (!this.selectedCategory) return this.$t('expertListing.allCategories');
 
-      return this.enLang ? this.selectedCategory.name : this.selectedCategory.name_ar
-    }
+      return this.enLang
+        ? this.selectedCategory.name
+        : this.selectedCategory.name_ar;
+    },
   },
 
   methods: {
     handleSearchInput(value) {
-      const query = value.type === 'keyword'
-        ? { categories: -1, keywords: value.id } 
-        : { categories: value.id }
-      this.$router.push({ query })
+      const query =
+        value.type === 'keyword'
+          ? { categories: -1, keywords: value.id }
+          : { categories: value.id };
+      this.$router.push({ query });
     },
     loadMore() {
-      this.page += 1
-      this.loading = true
-      store.dispatch('experts/getExperts', { ...this.filters, limit: this.limit, offset: this.page * this.limit })
-        .then(data => {
-          this.loading = false
-          this.count = data.count
+      this.page += 1;
+      this.loading = true;
+      store
+        .dispatch('experts/getExperts', {
+          ...this.filters,
+          limit: this.limit,
+          offset: this.page * this.limit,
+        })
+        .then((data) => {
+          this.loading = false;
+          this.count = data.count;
           // if (this.user && this.user.pk) this.experts = [...this.experts, ...data.results.filter(expert => expert.profile.pk !== this.user.pk)]
           // else this.experts = [...this.experts, ...data.results]
-          this.experts = [...this.experts, ...data.results]
-          next()
+          this.experts = [...this.experts, ...data.results];
+          next();
         })
         .catch((error) => {
-          this.loading = false
+          this.loading = false;
           console.log(error.response);
         });
     },
     updateSearch() {
-      const query = { ...this.$route.query, search: this.$refs.search.value }
-      this.$router.push({ query })
+      const query = { ...this.$route.query, search: this.$refs.search.value };
+      this.$router.push({ query });
     },
     applySectionVisibelty() {
       this.applySectionIsVisible = !this.applySectionIsVisible;
-      let el = document.getElementsByTagName("BODY")[0];
+      let el = document.getElementsByTagName('BODY')[0];
       if (this.applySectionIsVisible) {
-        el.style.overflow = "hidden";
+        el.style.overflow = 'hidden';
       } else {
-        el.style.overflow = "visible";
+        el.style.overflow = 'visible';
       }
     },
     setCategory(category) {
-      const query = { ...this.$route.query, categories: [category.id] }
-      this.$router.push({ query })
+      const query = { ...this.$route.query, categories: [category.id] };
+      this.$router.push({ query });
       // window.scrollTo(0, 0)
     },
     toggleKeyword(value) {
-      let { keywords = [] } = this.$route.query
-      keywords = [].concat(keywords).map(k => +k)
+      let { keywords = [] } = this.$route.query;
+      keywords = [].concat(keywords).map((k) => +k);
       if (keywords.includes(value)) {
-        keywords = keywords.filter(k => k !== value) 
+        keywords = keywords.filter((k) => k !== value);
       } else {
-        keywords = [...keywords, value]
+        keywords = [...keywords, value];
       }
-      const query = { ...this.$route.query, keywords }
-      this.$router.push({ query })
+      const query = { ...this.$route.query, keywords };
+      this.$router.push({ query });
     },
   },
 };
@@ -389,7 +355,7 @@ export default {
   z-index: 1;
 }
 .experts-header:before {
-  background-image: url("../../assets/img/experts/header.png");
+  background-image: url('../../assets/img/experts/header.png');
   background-size: 100% 100%;
   background-position: top;
   background-repeat: no-repeat;
@@ -412,7 +378,7 @@ export default {
   background-size: 100% 107%;
 }
 .rtl .experts-header:before {
-  transform: scaleX(-1)
+  transform: scaleX(-1);
 }
 
 /deep/ .multiselect__input {

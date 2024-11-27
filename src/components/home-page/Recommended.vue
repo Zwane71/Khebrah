@@ -25,13 +25,11 @@
           v-for="(expert, index) in allExperts"
           :key="index"
         >
-          <div
-            @click="navigateToProfile(expert)"
-          >
+          <div @click="navigateToProfile(expert)">
             <div class="exp">
               <div class="card-content">
                 <div class="recommended__img">
-                  <base-avatar 
+                  <base-avatar
                     bordered
                     :src="expert.profile_img"
                     :badge="expert.badge"
@@ -42,10 +40,13 @@
                   {{ getFullname(expert) }}
                 </h4>
                 <span class="card-content__span">
-                    {{ getTitle(expert) }}
+                  {{ getTitle(expert) }}
                 </span>
                 <div class="available-s" v-if="nextAvailability(expert)">
-                  {{$t('availability.nextAvailability')}}: <span class="available-v">{{ nextAvailability(expert) }}</span> 
+                  {{ $t('availability.nextAvailability') }}:
+                  <span class="available-v">
+                    {{ nextAvailability(expert) }}
+                  </span>
                 </div>
                 <!-- <p class="hidden" v-html="enLang ? expert.description : expert.description_ar" :ref="`htmlDesc-${expert.profile.pk}`">
                 </p>
@@ -54,13 +55,10 @@
                   class="card-content__p"
                 >
                 </p> -->
-                <p class="card-content__p" v-text="getSkimmedDesc(expert)">
-                </p>
+                <p class="card-content__p" v-text="getSkimmedDesc(expert)"></p>
 
                 <div>
-                  <ul
-                    class="list-unstyled experts"
-                  >
+                  <ul class="list-unstyled experts">
                     <li
                       v-for="(keyword, index) in expert.keywords"
                       :key="index"
@@ -76,16 +74,13 @@
                 </div>
 
                 <ul class="list-unstyled ranking1" v-if="expert.ratings.length">
-                  <li
-                    v-for="n in Math.floor(expert.avg_rating || 0)"
-                    :key="n"
-                  >
+                  <li v-for="n in Math.floor(expert.avg_rating || 0)" :key="n">
                     <i class="fas fa-star"></i>
                   </li>
                 </ul>
 
-                <span class="ranking" v-if="expert.ratings.length"
-                  >{{ expert.avg_rating || 0 }} / 5
+                <span class="ranking" v-if="expert.ratings.length">
+                  {{ expert.avg_rating || 0 }} / 5
                 </span>
               </div>
             </div>
@@ -98,22 +93,22 @@
           <span><i class="fa fa-angle-left"></i></span>
         </li>
         <li id="next-btn">
-          <span> <i class="fa fa-angle-right"></i></span>
+          <span><i class="fa fa-angle-right"></i></span>
         </li>
       </ul>
       <div class="statistics-c">
         <div class="statistics" :class="{ fade1: 'showElement' }">
           <div class="statistics__div border-right">
             <p class="statistics__p">{{ khebrahStats.projects }}</p>
-            <span> {{ $t('home.projectsDone' )}} </span>
+            <span>{{ $t('home.projectsDone') }}</span>
           </div>
           <div class="statistics__div border-right">
             <p class="statistics__p">{{ khebrahStats.experts }}</p>
-            <span> {{ $t('home.expertsCountTitle' )}} </span>
+            <span>{{ $t('home.expertsCountTitle') }}</span>
           </div>
           <div class="statistics__div">
             <p class="statistics__p">{{ khebrahStats.consultations }}</p>
-            <span> {{ $t('home.consultations' )}} </span>
+            <span>{{ $t('home.consultations') }}</span>
           </div>
         </div>
       </div>
@@ -122,7 +117,7 @@
 </template>
 
 <script>
-import dayjs from '@/plugins/dayjs'
+import dayjs from '@/plugins/dayjs';
 
 export default {
   data() {
@@ -135,7 +130,7 @@ export default {
         speed: 500,
         slidesToShow: 3,
         slidesToScroll: 1,
-        rows: 2,
+        rows: 1,
         arrows: false,
         responsive: [
           {
@@ -148,7 +143,7 @@ export default {
           {
             breakpoint: 767.98,
             settings: {
-              slidesToShow: 1,
+              slidesToShow: 3,
               slidesToScroll: 1,
             },
           },
@@ -158,12 +153,12 @@ export default {
               slidesToShow: 1,
               slidesToScroll: 1,
               rows: 1,
-              centerPadding: "50px",
+              centerPadding: '50px',
               centerMode: true,
               // centerPadding: "20px",
               arrows: true,
-              prevArrow: "#prev-btn",
-              nextArrow: "#next-btn",
+              prevArrow: '#prev-btn',
+              nextArrow: '#next-btn',
             },
           },
         ],
@@ -174,72 +169,78 @@ export default {
   },
   methods: {
     getFullname(expert) {
-      const firstname = (this.arLang && expert.first_name_ar) || expert.first_name
-      const lastname = (this.arLang && expert.last_name_ar) || expert.last_name
-      return `${firstname} ${lastname}`
+      const firstname =
+        (this.arLang && expert.first_name_ar) || expert.first_name;
+      const lastname = (this.arLang && expert.last_name_ar) || expert.last_name;
+      return `${firstname} ${lastname}`;
     },
     getTitle(expert) {
-      return (this.arLang && expert.title_ar) || expert.title
+      return (this.arLang && expert.title_ar) || expert.title;
     },
     getSkimmedDesc(expert) {
-      const description =  (this.arLang && expert.description_ar) || expert.description || ' '
-      const doc = new DOMParser().parseFromString(description, 'text/html')
-      return doc.body.innerText
+      const description =
+        (this.arLang && expert.description_ar) || expert.description || ' ';
+      const doc = new DOMParser().parseFromString(description, 'text/html');
+      return doc.body.innerText;
     },
     nextAvailability(expert) {
-      if (!expert.next_avail) return null
+      if (!expert.next_avail) return null;
 
-      const { from_time, to_time } = expert.next_avail
+      const { from_time, to_time } = expert.next_avail;
 
-      const from = dayjs(from_time)
-      const to = dayjs(to_time)
-      const now = dayjs()
+      const from = dayjs(from_time);
+      const to = dayjs(to_time);
+      const now = dayjs();
 
-      if(now.isBetween(from, to)) {
-        return this.$t('common.now')
-      } else if(now.isBefore(from)) {
-        if (now.isSame(from, 'day')) return this.$t('common.today')
+      if (now.isBetween(from, to)) {
+        return this.$t('common.now');
+      } else if (now.isBefore(from)) {
+        if (now.isSame(from, 'day')) return this.$t('common.today');
         if (now.diff(from, 'day') < 7) {
-          const day = from.format('dddd').toLowerCase()
-          return this.$t(`availability.${day}`) 
+          const day = from.format('dddd').toLowerCase();
+          return this.$t(`availability.${day}`);
         } else {
-          return from.format('DD MMM')
+          return from.format('DD MMM');
         }
-      } 
+      }
 
-      return null
+      return null;
     },
     navigateToProfile(expert) {
-      this.$router.push({ name: "expertProfile", params: { username: expert.profile.username } });
+      this.$router.push({
+        name: 'expertProfile',
+        params: { username: expert.profile.username },
+      });
     },
     fetchExperts() {
-      this.$store.dispatch('experts/getExperts', { limit: 6, featured: true })
-        .then(data => {
-          // if (this.user && this.user.pk) this.allExperts = data.filter(expert => expert.profile.pk !== this.user.pk) 
+      this.$store
+        .dispatch('experts/getExperts', { limit: 6, featured: true })
+        .then((data) => {
+          // if (this.user && this.user.pk) this.allExperts = data.filter(expert => expert.profile.pk !== this.user.pk)
           // else this.allExperts = data
-          this.allExperts = data.results
+          this.allExperts = data.results;
         })
         .catch((error) => {
           console.log(error.response);
         });
     },
     getKeyword(id) {
-      if (!this.keywordsHash[id]) return ''
-      return this.$i18n.locale === 'ar' 
+      if (!this.keywordsHash[id]) return '';
+      return this.$i18n.locale === 'ar'
         ? this.keywordsHash[id].name_ar
-        : this.keywordsHash[id].name
-    }
+        : this.keywordsHash[id].name;
+    },
   },
   computed: {
     keywordsHash() {
-      return this.$store.getters['data/keywordsHash']
+      return this.$store.getters['data/keywordsHash'];
     },
     user() {
-      return this.$store.getters['auth/user']
+      return this.$store.getters['auth/user'];
     },
     khebrahStats() {
-      return this.$store.getters['data/khebrahStats']
-    }
+      return this.$store.getters['data/khebrahStats'];
+    },
   },
   created() {
     this.fetchExperts();
@@ -261,12 +262,12 @@ export default {
   //               source[0].classList.add('hidden')
   //             }
   //             else dest.innerText = source.textContent
-  //           } 
+  //           }
   //         })
   //       })
   //     },
   //     immediate: true
-  //   } 
+  //   }
   // },
   mounted() {
     setTimeout(() => {

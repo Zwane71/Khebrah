@@ -23,9 +23,7 @@
               <!-- <b-nav-item :to="`/${$i18n.locale}/experts`" v-if="!isAuthenticated">{{
                 $t("home.ourExperts")
               }}</b-nav-item> -->
-              <b-nav-item v-if="(!isAuthenticated || (isAuthenticated && profileComplete))" :to="`/${$i18n.locale}/experts`" @click="resetScroll" class="find">{{
-                $t("home.findAKhebrah")
-              }}</b-nav-item>
+
               <!-- <b-nav-item href="#" v-if="!isAuthenticated">{{ $t("home.ourBlog") }}</b-nav-item>
               <b-nav-item href="#" v-if="!isAuthenticated">{{ $t("home.aboutUs") }}</b-nav-item> -->
             </div>
@@ -37,12 +35,26 @@
                 >{{ $t("home.applyAsExpert") }}</b-nav-item
               > -->
 
-              <b-nav-item :to="`/${$i18n.locale}/login`" v-if="!isAuthenticated">{{
-                $t("home.login")
-              }}</b-nav-item>
-              <b-nav-item :to="`/${$i18n.locale}/register`" v-if="!isAuthenticated">{{
-                $t("home.register")
-              }}</b-nav-item>
+              <b-nav-item
+                :to="`/${$i18n.locale}/login`"
+                v-if="!isAuthenticated"
+              >
+                {{ $t('home.login') }}
+              </b-nav-item>
+              <b-nav-item
+                :to="`/${$i18n.locale}/register`"
+                v-if="!isAuthenticated"
+              >
+                {{ $t('home.register') }}
+              </b-nav-item>
+              <b-nav-item
+                v-if="!isAuthenticated || (isAuthenticated && profileComplete)"
+                :to="`/${$i18n.locale}/experts`"
+                @click="resetScroll"
+                class="find"
+              >
+                {{ $t('home.findAKhebrah') }}
+              </b-nav-item>
 
               <!-- <template v-if="isAuthenticated">
                 <icon-with-badge icon="far fa-comment-alt" :count="unreadMessages" target="messages"/>
@@ -59,20 +71,31 @@
 
           <div class="d-flex align-items-center">
             <template v-if="isAuthenticated">
-              <icon-with-badge v-if="profileComplete" icon="far fa-comment-alt" :count="unreadMessages" target="messages"/>
-              <icon-with-badge v-if="profileComplete" icon="far fa-bell" :count="unreadNotifications" target="notifications"/>
+              <icon-with-badge
+                v-if="profileComplete"
+                icon="far fa-comment-alt"
+                :count="unreadMessages"
+                target="messages"
+              />
+              <icon-with-badge
+                v-if="profileComplete"
+                icon="far fa-bell"
+                :count="unreadNotifications"
+                target="notifications"
+              />
 
-              <profile-dropdown class="profile-dropdown d-none d-lg-block mr-2" />
+              <profile-dropdown
+                class="profile-dropdown d-none d-lg-block mr-2"
+              />
             </template>
             <div class="lang-toggle" @click="changeLocale">
-              {{ $store.state.rtl ? "En" : "ع" }}
+              {{ $store.state.rtl ? 'En' : 'ع' }}
             </div>
           </div>
-
         </div>
       </b-navbar>
     </header>
-    <mobile-menu @close="closeMenu" :class="{ activeMenu: menuIsVisible }"/>
+    <mobile-menu @close="closeMenu" :class="{ activeMenu: menuIsVisible }" />
     <!-- <div class="mobile-menu" :class="{ activeMenu: menuIsVisible }">
       <span @click="closeMenu"> <i class="fas fa-times close-menu"></i></span>
       <ul class="list-unstyled mobile-menu__ul">
@@ -100,19 +123,17 @@
       </ul>
     </div> -->
 
-    <base-modal 
-      ref="mobileModal"
-      :title="$t('user.verifyMobileModalTitle')">
-      <edit-mobile @success="hideMobileModal" @cancel="closeMobileModal"/>
+    <base-modal ref="mobileModal" :title="$t('user.verifyMobileModalTitle')">
+      <edit-mobile @success="hideMobileModal" @cancel="closeMobileModal" />
     </base-modal>
   </div>
 </template>
 
 <script>
-import { setLanguage } from "@/app/homepage-module/methods/change_language";
-import ProfileDropdown from "@/components/header/ProfileDropdown.vue"
-import IconWithBadge from "@/components/header/IconWithBadge.vue"
-import EditMobile from '@/app/user-module/component/editMobile.vue'
+import { setLanguage } from '@/app/homepage-module/methods/change_language';
+import ProfileDropdown from '@/components/header/ProfileDropdown.vue';
+import IconWithBadge from '@/components/header/IconWithBadge.vue';
+import EditMobile from '@/app/user-module/component/editMobile.vue';
 import MobileMenu from '@/components/header/MobileMenu.vue';
 
 export default {
@@ -120,14 +141,14 @@ export default {
     ProfileDropdown,
     IconWithBadge,
     EditMobile,
-    MobileMenu
+    MobileMenu,
   },
   data() {
     return {
       menuIsVisible: false,
       searchInputIsVisible: false,
       style: {
-        width: "100%",
+        width: '100%',
       },
       view: {
         topOfPage: true,
@@ -135,61 +156,61 @@ export default {
     };
   },
   beforeMount() {
-    window.addEventListener("scroll", this.handleScroll);
+    window.addEventListener('scroll', this.handleScroll);
   },
   computed: {
     isAuthenticated() {
-      return this.$store.getters["auth/isAuthenticated"];
+      return this.$store.getters['auth/isAuthenticated'];
     },
     user() {
-      return this.$store.getters["auth/user"];
+      return this.$store.getters['auth/user'];
     },
     profile() {
-      return this.$store.getters["user/profile"];
+      return this.$store.getters['user/profile'];
     },
     unreadMessages() {
-      return this.$store.getters["chat/unreadCount"];
+      return this.$store.getters['chat/unreadCount'];
     },
     unreadNotifications() {
-      return this.$store.getters["notifications/unreadCount"];
+      return this.$store.getters['notifications/unreadCount'];
     },
     isExpert() {
-      return this.$store.getters["auth/isExpert"];
+      return this.$store.getters['auth/isExpert'];
     },
     profileComplete() {
-      return this.profile && this.profile.profile_complete
-    }
+      return this.profile && this.profile.profile_complete;
+    },
   },
   methods: {
     applyAsExpert() {
       if (this.user && !this.user.mobile) {
-        this.showMobileModal()
+        this.showMobileModal();
       } else {
-        this.$router.push({ name: 'CreateExpert' })
+        this.$router.push({ name: 'CreateExpert' });
       }
     },
     showMobileModal() {
-      this.$refs.mobileModal.show()
+      this.$refs.mobileModal.show();
     },
     closeMobileModal() {
-      this.$refs.mobileModal.hide()
+      this.$refs.mobileModal.hide();
     },
     hideMobileModal() {
-      this.$refs.mobileModal.hide()
-      this.applyAsExpert()
+      this.$refs.mobileModal.hide();
+      this.applyAsExpert();
     },
     signout() {
-      this.$store.commit('clearNextRoute')
-      this.$store.dispatch("auth/logout");
+      this.$store.commit('clearNextRoute');
+      this.$store.dispatch('auth/logout');
       this.$router.push(`/${$i18n.locale}/`);
       location.reload();
     },
     changeLocale() {
       let currentLocalae = this.$store.state.rtl;
       if (currentLocalae == false) {
-        setLanguage("ar");
+        setLanguage('ar');
       } else {
-        setLanguage("en");
+        setLanguage('en');
       }
     },
 
@@ -210,21 +231,21 @@ export default {
       }
     },
     resetScroll() {
-      window.scrollTo(0, 0)
-    }
+      window.scrollTo(0, 0);
+    },
   },
 };
 </script>
 <style scoped>
 .find {
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
 }
 .activeMenu {
   width: 100% !important;
 }
 .navbar {
   background-color: #fff !important;
-  box-shadow: 0 0 2px 1px rgba(0,0,0,0.15) !important;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.15) !important;
 }
 .lang-toggle {
   background-color: #00a072;
@@ -261,7 +282,8 @@ export default {
 @media screen and (max-width: 768px) {
   .header-logo {
     height: auto;
-    width: 40px !important;
+    width: 60px !important;
+    padding: 06px;
   }
   .lang-toggle {
     width: 33px;
@@ -270,7 +292,7 @@ export default {
     padding-bottom: 3px;
   }
   .navbar {
-    height: 60px;
+    height: 70px;
   }
 }
 </style>
